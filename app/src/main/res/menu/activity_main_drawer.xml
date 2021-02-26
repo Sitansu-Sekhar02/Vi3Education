@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/nav_findtutor"
+            android:icon="@drawable/ic_tutor"
+            android:title="@string/findtutor"/>
+        <item
+            android:id="@+id/nav_course"
+            android:icon="@drawable/ic_play_button"
+            android:title="@string/course"/>
+        <item
+            android:id="@+id/nav_coming"
+            android:icon="@drawable/ic_upcoming"
+            android:title="@string/upcoming"/>
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home"/>
+
+</menu>
