@@ -5,6 +5,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_50sdp"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +40,7 @@
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_width="@dimen/_100sdp"
                     android:inputType="text"
-                    android:imeOptions="actionSearch"
+                    android:imeOptions="actionDone"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_border"/>
 
@@ -73,9 +74,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/find_tutor"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 

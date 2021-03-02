@@ -63,8 +63,7 @@ public class LoginActivity extends AppCompatActivity  {
     Dialog dialog;
 
     public static final String URL = "https://vi3edutech.com/vi3webservices/login.php";
-    public static final String forgot_password = "https://vi3edutech.com/vi3webservices/forgot_password.php";
-
+    public static final String forgot_password = "https://vi3edutech.com/vi3webservices/send_passwordmail.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,10 +117,10 @@ public class LoginActivity extends AppCompatActivity  {
             public void onClick(View view) {
 
                 if (Utils.isNetworkConnectedMainThred(LoginActivity.this)) {
-                   /* ProgressDialog();
+                    ProgressDialog();
                     dialog.show();
-                    ForgotPassword();*/
-                    ProgressForgotPassword();
+                    ForgotPassword();
+                   // ProgressForgotPassword();
 
                 } else {
                     Toasty.error(LoginActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -194,30 +193,17 @@ public class LoginActivity extends AppCompatActivity  {
         });
     }
 
-    private void ForgotPassword(EditText retypePass, final EditText newPassword, final EditText userName) {
+    private void ForgotPassword() {
         StringRequest request = new StringRequest(Request.Method.POST, forgot_password, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 dialog.cancel();
                 Log.e("forgot password",response);
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
 
-                    if(jsonObject.getString("success").equalsIgnoreCase("true"))
-                    {
-                        startActivity(new Intent(LoginActivity.this, LoginActivity.class));
-                        overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
-                        Toasty.success(LoginActivity.this,"Password Changed Successfully",Toast.LENGTH_SHORT).show();
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                ProgressForgotPassword();
 
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -228,8 +214,8 @@ public class LoginActivity extends AppCompatActivity  {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<String, String>();
-                param.put("email",userName.getText().toString());
-                param.put("password",newPassword.getText().toString());
+                param.put("email",email.getText().toString());
+              // param.put("password",newPassword.getText().toString());
                 return param;
             }
         };
@@ -241,7 +227,7 @@ public class LoginActivity extends AppCompatActivity  {
     private void ProgressForgotPassword() {
         final Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.forgot_password);
+        dialog.setContentView(R.layout.email_popup);
         Window window = dialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
         wlp.gravity = Gravity.CENTER;
@@ -254,15 +240,24 @@ public class LoginActivity extends AppCompatActivity  {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-        final EditText userName=dialog.findViewById(R.id.et_userName);
+        Button tvOk=dialog.findViewById(R.id.btnOk);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+
+            }
+        });
+
+        /*final EditText userName=dialog.findViewById(R.id.et_userName);
         final EditText newPassword=dialog.findViewById(R.id.et_newPassword);
         final EditText retypePass=dialog.findViewById(R.id.et_Retypepass);
 
 
         Button tvOk=dialog.findViewById(R.id.reset_pass);
-        Button cancel=dialog.findViewById(R.id.cancel);
+        Button cancel=dialog.findViewById(R.id.cancel);*/
 
-        tvOk.setOnClickListener(new View.OnClickListener() {
+        /*tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -293,27 +288,27 @@ public class LoginActivity extends AppCompatActivity  {
                         Toasty.error(LoginActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
 
                     }
-                      /*  newPassword.setText("");
+                      *//*  newPassword.setText("");
                         retypePass.setText("");
                         ProgressDialog();
                         dialog.show();
 
-                        ForgotPassword(userName,newPassword,retypePass);*/
+                        ForgotPassword(userName,newPassword,retypePass);*//*
 
 
 
                 }
             }
 
-        });
+        });*/
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        /*cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.cancel();
 
             }
-        });
+        });*/
     }
 
     private void LoginSuccess() {

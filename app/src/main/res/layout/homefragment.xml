@@ -58,6 +58,7 @@
                     android:layout_weight="1"/>
 
                 <Button
+                    android:id="@+id/view_allCourse"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginRight="@dimen/_8sdp"
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:clipToPadding="false"
+                android:orientation="horizontal"
                 android:scrollbars="horizontal"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"

@@ -9,7 +9,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
-    <string name="course">Your Course</string>
+    <string name="course">My Courses</string>
     <string name="account">Your Account</string>
     <string name="logout">LOGOUT</string>
     <string name="upcoming">Coming Soon</string>
@@ -40,7 +40,7 @@
     <string name="invalid_PhoneNumber">Please enter valid mobile number</string>
     <string name="invalid_Email">Please enter valid email</string>
     <string name="invalid_Password">Enter valid password</string>
-    <string name="passwordtext">Dear Customer\n Your VI3Edutech password has been sent to your registered email id.\n Please check your email for confirmation and Do not share it to others.</string>
+    <string name="passwordtext">Dear Customer\n Your VI3Edutech password has been sent to your registered email id.\n Please check your email for confirmation and Do not share it to others.\n Thank You.</string>
     <string name="forgot_password">Forget Password ?</string>
     <string name="findtutor">Find Tutor</string>
     <string name="new_pass">Enter new password</string>
@@ -48,4 +48,5 @@
     <string name="invalid_address">Enter valid address</string>
     <string name="invalid_subject">Enter valid subject</string>
     <string name="searchtutor">Search by Tutor</string>
+    <string name="change_pass">Change Password</string>
 </resources>

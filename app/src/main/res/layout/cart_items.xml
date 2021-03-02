@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_5sdp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_160sdp">
+        <ImageView
+            android:padding="@dimen/_5sdp"
+            android:id="@+id/cart_item_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_secure"/>
+        <LinearLayout
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_weight=".2"
+                    android:layout_gravity="end"
+                    android:text="Delete"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:id="@+id/cart_item_delete"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:clickable="true"
+                    android:textSize="@dimen/_12sdp"
+                    android:drawableLeft="@drawable/ic_baseline_delete_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <View android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:background="@color/grey_light"
+                />
+            <LinearLayout
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.vi3.vi3education.customecomponent.CustomTextView
+                    android:layout_weight="1.8"
+                    android:layout_gravity="left"
+                    android:id="@+id/tvcartProductName"
+                    android:text="Pipes"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/colorPrimary"
+                    android:singleLine="true"
+                    android:textStyle="bold"
+                    app:font_name="NunitoRegular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_18sdp">
+
+                <com.vi3.vi3education.customecomponent.CustomTextView
+                    android:id="@+id/tvFinalprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:singleLine="true"
+                    android:text="\u20B9 499"
+                    android:textColor="@color/greenprice"
+                    android:textSize="@dimen/_12sdp"
+                    app:font_name="NunitoSemiBold.ttf" />
+                <com.vi3.vi3education.customecomponent.CustomTextView
+                    android:singleLine="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:id="@+id/tvOldPrice"
+                    android:layout_toRightOf="@+id/tvFinalprice"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:text=" \u20B9 1399"
+                    android:textColor="@color/dark_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.vi3.vi3education.customecomponent.CustomTextView
+                    android:singleLine="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_toRightOf="@+id/tvOldPrice"
+                    android:textSize="@dimen/_10sdp"
+                    android:id="@+id/tvSave"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:text=" Save \u20B9 700"
+                    android:textColor="@color/red_800"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.vi3.vi3education.customecomponent.CustomTextView
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_centerVertical="true"
+                    android:singleLine="true"
+                    android:text="\u20B9"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    app:font_name="NunitoSemiBold.ttf" />
+
+                <com.vi3.vi3education.customecomponent.CustomTextView
+                    android:id="@+id/price"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_centerVertical="true"
+                    android:text="1200"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:font_name="NunitoSemiBold.ttf" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="#FF6A6A"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(GST Included)"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

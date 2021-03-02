@@ -33,6 +33,8 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.vi3.vi3education.Fragments.AboutusFragment;
+import com.vi3.vi3education.Fragments.CartFragment;
+import com.vi3.vi3education.Fragments.ChangePasswordFragment;
 import com.vi3.vi3education.Fragments.DashboardFragment;
 import com.vi3.vi3education.Fragments.FindByTutorFragment;
 import com.vi3.vi3education.Fragments.UpcomingCourseFragment;
@@ -181,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (view.getId()) {
             case R.id.ivCart:
                 // Progress();
-                // replaceFragmentWithAnimation(new CartFragment());
+                 replaceFragmentWithAnimation(new CartFragment());
                 break;
             case R.id.iv_menu:
                 drawer.openDrawer(Gravity.LEFT);
@@ -202,9 +204,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MainActivity.bottom_nav.setVisibility(View.GONE);
 
         } else if (id == R.id.rate_us) {
-            // replaceFragmentWithAnimation(new PrivacyPolicyFragment());
-            MainActivity.bottom_nav.setVisibility(View.GONE);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.vi3.vi3education"));
+            startActivity(intent);
 
+        }
+        else if (id == R.id.nav_changePwrd) {
+             replaceFragmentWithAnimation(new ChangePasswordFragment());
+            MainActivity.bottom_nav.setVisibility(View.GONE);
         }
         else if (id == R.id.share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
