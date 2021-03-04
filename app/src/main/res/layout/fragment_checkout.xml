@@ -569,20 +569,32 @@
                         android:layout_marginRight="@dimen/_5sdp"
                         android:background="@color/grey_light" />
                     <RelativeLayout
-                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_20sdp">
+                        android:layout_height="wrap_content">
                         <com.vi3.vi3education.customecomponent.CustomTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/_10sdp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:id="@+id/tvSave"
-                            android:text="You will save \u20b9 698 on this order123."
-                            android:textColor="@color/green_600"
+                            android:text="Apply Coupon"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textColor="@color/green_800"
                             android:textSize="@dimen/_10sdp"
                             app:font_name="NunitoBold.ttf" />
+                        <EditText
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:hint="enter coupon"
+                            android:gravity="center"
+                            android:inputType="text"
+                            android:imeOptions="actionDone"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@drawable/edit_text_border"
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/EtApplyCoupon"
+                            />
                     </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"

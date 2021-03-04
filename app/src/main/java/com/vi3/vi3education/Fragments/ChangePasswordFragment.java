@@ -80,9 +80,10 @@ public class ChangePasswordFragment extends Fragment {
         et_userName=view.findViewById(R.id.et_userName);
 
         reset=view.findViewById(R.id.reset_pass);
-        cancel=view.findViewById(R.id.cancel);
+        //cancel=view.findViewById(R.id.cancel);
 
         et_userName.setText(preferences.get("email"));
+        et_userName.setEnabled(false);
 
         MainActivity.tvHeaderText.setText("Change Password");
         MainActivity.iv_menu.setImageResource(R.drawable.ic_baseline_arrow_back_ios_24);
@@ -110,8 +111,6 @@ public class ChangePasswordFragment extends Fragment {
                 } else {
 
                     if (newPassword.getText().toString().equals(retypePassword.getText().toString())) {
-                        newPassword.setText("");
-                        retypePassword.setText("");
                         ProgressForMain();
                         dialog.show();
                         ChangePassword(et_userName,newPassword);
@@ -151,6 +150,9 @@ public class ChangePasswordFragment extends Fragment {
                 public void onResponse(String response) {
                     dialog.cancel();
                     Log.e("forgot password",response);
+                    newPassword.setText("");
+                    retypePassword.setText("");
+
                     try {
                         JSONObject jsonObject=new JSONObject(response);
 
@@ -158,7 +160,10 @@ public class ChangePasswordFragment extends Fragment {
                         {
                             preferences.set("password",jsonObject.getString("Password"));
                             preferences.commit();
-                            //replaceFragmentWithAnimation(new DashboardFragment());
+                            Intent i = new Intent(getActivity(), MainActivity.class);
+                            startActivity(i);
+                            getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
+                           //replaceFragmentWithAnimation(new DashboardFragment());
                             Toasty.success(getActivity(),"Password Changed Successfully",Toast.LENGTH_SHORT).show();
                         }
 

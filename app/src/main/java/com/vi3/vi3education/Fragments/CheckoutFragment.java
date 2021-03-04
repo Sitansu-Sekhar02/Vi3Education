@@ -196,7 +196,7 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
         try {
             JSONObject options = new JSONObject();
             options.put("name", "VI3 EDUTECH PVT.LTD.");
-            options.put("description", "Video Charges");// You can omit the image option to fetch the image from dashboard
+            options.put("description", "Video Tutorial");// You can omit the image option to fetch the image from dashboard
             // set image of you brand
              options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("currency", "INR");
