@@ -99,6 +99,7 @@
                         android:src="@drawable/ic_baseline_favorite_border_24"/>
                 </RelativeLayout>
                 <Button
+                    android:id="@+id/buy_now"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:text="Buy Now"
@@ -110,6 +111,22 @@
                     android:background="@drawable/view_border"
                     android:layout_gravity="center"
                     android:gravity="center"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:text="Course added"
+                    android:id="@+id/rlOutofstock"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_14sdp"
+                    android:background="@drawable/rectangle_cart"/>
+
+
 
             </LinearLayout>
 

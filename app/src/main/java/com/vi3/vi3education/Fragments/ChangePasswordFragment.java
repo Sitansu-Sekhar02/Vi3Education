@@ -114,7 +114,7 @@ public class ChangePasswordFragment extends Fragment {
                         retypePassword.setText("");
                         ProgressForMain();
                         dialog.show();
-                        ChangePassword();
+                        ChangePassword(et_userName,newPassword);
                     } else {
 
                         Toasty.error(getActivity(), "Password not match", Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class ChangePasswordFragment extends Fragment {
         dialog.show();
     }
 
-    private void ChangePassword() {
+    private void ChangePassword(final EditText et_userName, final EditText newPassword) {
 
             StringRequest request = new StringRequest(Request.Method.POST, change_passowrd, new Response.Listener<String>() {
 
@@ -162,7 +162,6 @@ public class ChangePasswordFragment extends Fragment {
                             Toasty.success(getActivity(),"Password Changed Successfully",Toast.LENGTH_SHORT).show();
                         }
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -179,7 +178,7 @@ public class ChangePasswordFragment extends Fragment {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> param = new HashMap<String, String>();
-                    param.put("email",preferences.get("email"));
+                    param.put("email", et_userName.getText().toString());
                     param.put("password",newPassword.getText().toString());
                     return param;
                 }

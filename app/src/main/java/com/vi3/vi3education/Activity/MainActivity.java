@@ -37,6 +37,7 @@ import com.vi3.vi3education.Fragments.CartFragment;
 import com.vi3.vi3education.Fragments.ChangePasswordFragment;
 import com.vi3.vi3education.Fragments.DashboardFragment;
 import com.vi3.vi3education.Fragments.FindByTutorFragment;
+import com.vi3.vi3education.Fragments.PrivacyPolicyFragment;
 import com.vi3.vi3education.Fragments.UpcomingCourseFragment;
 import com.vi3.vi3education.Fragments.YourCourseFragment;
 import com.vi3.vi3education.R;
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             replaceFragmentWithAnimation( new AboutusFragment());
             MainActivity.bottom_nav.setVisibility(View.GONE);
         } else if (id == R.id.privacy_policy) {
-            // replaceFragmentWithAnimation(new AboutUsFragment());
+            replaceFragmentWithAnimation(new PrivacyPolicyFragment());
             MainActivity.bottom_nav.setVisibility(View.GONE);
 
         } else if (id == R.id.rate_us) {

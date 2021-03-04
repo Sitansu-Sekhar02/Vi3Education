@@ -173,7 +173,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (Utils.isNetworkConnectedMainThred(getActivity())) {
-                   // replaceFragmentWithAnimation(new CheckoutFragment());
+                    replaceFragmentWithAnimation(new CheckoutFragment());
                 } else {
                     Toasty.error(getActivity(), "No Internet Connection!", Toast.LENGTH_LONG).show();
                 }

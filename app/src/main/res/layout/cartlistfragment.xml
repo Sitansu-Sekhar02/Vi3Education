@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_50"
     android:orientation="vertical"
+    android:background="#ffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -85,9 +85,10 @@
             android:id="@+id/gif"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250sdp"
-            android:src="@drawable/empty_cart" />
+            android:src="@drawable/cart_empty" />
         <com.vi3.vi3education.customecomponent.CustomButton
             android:id="@+id/shopNow"
+            android:visibility="gone"
             android:layout_below="@+id/gif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,7 +98,6 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-
 
 
     <include android:id="@+id/layout_cart_empty"

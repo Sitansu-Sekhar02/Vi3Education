@@ -12,7 +12,7 @@
     <string name="course">My Courses</string>
     <string name="account">Your Account</string>
     <string name="logout">LOGOUT</string>
-    <string name="upcoming">Coming Soon</string>
+    <string name="upcoming">Courses</string>
     <string name="slogan">Committed To Excellence</string>
     <string name="register">REGISTER</string>
     <string name="name">Name</string>
@@ -49,4 +49,7 @@
     <string name="invalid_subject">Enter valid subject</string>
     <string name="searchtutor">Search by Tutor</string>
     <string name="change_pass">Change Password</string>
+    <string name="razorpay_key_id">rzp_live_KsQHSXfbuwXrCx</string>
+    <string name="razorpay_secret_key">FFIQ14zSAe6D7K0pixihLOHA</string>
+    <string name="paymentmode">Please select payment method</string>
 </resources>

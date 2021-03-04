@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -66,6 +67,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.tabs.TabLayout;
 import com.vi3.vi3education.Activity.LoginActivity;
+import com.vi3.vi3education.Activity.MainActivity;
 import com.vi3.vi3education.Activity.Utils;
 import com.vi3.vi3education.Model.DashboardModel;
 import com.vi3.vi3education.R;
@@ -373,11 +375,43 @@ public class DashboardFragment  extends Fragment implements ExoPlayer.EventListe
             holder.subject.setText(mModel.get(position).getSubject_name());
             holder.video_price.setText(mModel.get(position).getVideo_price());
 
+            holder.buy_video.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibe.vibrate(100);
+                   /* holder.buy_video.setVisibility(View.GONE);
+                    holder.rlOutofstock.setVisibility(View.VISIBLE);
+                    Log.e("pid_no",""+ allCourse.get(position).getVideo_id());
+                    String pid=allCourse.get(position).getVideo_id();
+                    String video_name=allCourse.get(position).getVideo_name();
+                    Log.e("pid_no",""+ allCourse.get(position).getVideo_name());
+
+                    String video_price=allCourse.get(position).getVideo_price();
+                    Log.e("pid_no",""+ allCourse.get(position).getVideo_price());
+
+                    AddtoCart(pid,video_name,video_price);
+
+                    int counter = preferences.getInt("count");
+                    int totalcount = counter + 1;
+                    preferences.set("count", totalcount);
+                    preferences.commit();
+
+                    ShakeAnimation(MainActivity.tvCount);
+                    MainActivity.tvCount.setText("" + totalcount);
+*/
+
+                }
+            });
+
+
             String video_path="https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
             Uri uri=Uri.parse(video_path);
             holder.videoView.setVideoURI(uri);
             holder.videoView.requestFocus();
             holder.videoView.start();
+
+
 
             MediaController mediaController=new MediaController(getActivity());
             holder.videoView.setMediaController(mediaController);
@@ -430,9 +464,10 @@ public class DashboardFragment  extends Fragment implements ExoPlayer.EventListe
     private class Holder extends RecyclerView.ViewHolder {
         VideoView videoView;
         TextView subject;
-        TextView textView;
+        TextView added;
         TextView video_price;
         RatingBar ratingBar;
+        Button buy_video;
 
         public Holder(View itemView) {
             super(itemView);
@@ -440,6 +475,8 @@ public class DashboardFragment  extends Fragment implements ExoPlayer.EventListe
             videoView=itemView.findViewById(R.id.videoView);
             subject=itemView.findViewById(R.id.tv_SubjectName);
             video_price=itemView.findViewById(R.id.price);
+            buy_video=itemView.findViewById(R.id.buy_now);
+            added=itemView.findViewById(R.id.rlOutofstock);
 
         }
     }

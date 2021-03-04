@@ -19,12 +19,18 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:usesCleartextTraffic="true"
+
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity"/>
         <activity android:name=".Activity.LoginActivity"/>
         <activity android:name=".Activity.TutorRegistration"/>
         <activity android:name=".Activity.SignupActivity"/>
+        <activity android:name=".Activity.RazorpayActivity"/>
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_KsQHSXfbuwXrCx" />
+
         <activity android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
