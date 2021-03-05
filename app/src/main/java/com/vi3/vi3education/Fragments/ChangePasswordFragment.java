@@ -66,7 +66,6 @@ public class ChangePasswordFragment extends Fragment {
     public static final String change_passowrd = "https://vi3edutech.com/vi3webservices/forgot_password.php";
 
 
-
     RecyclerView recyclerView;
 
     @Nullable

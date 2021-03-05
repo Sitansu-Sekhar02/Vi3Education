@@ -338,6 +338,7 @@ public class CartFragment extends Fragment {
                     mModel.remove(position);
                     notifyDataSetChanged();
 
+
                    /* int count = Integer.parseInt(holder.cart_item_number.getText().toString());
                     if (count > 1) {
                         Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -356,7 +357,7 @@ public class CartFragment extends Fragment {
                         int totalcount = counter - 1;
                         preferences.set("count", totalcount);
                         preferences.commit();
-                       // DrawerActivity.tvCount.setText("" + totalcount);
+                        MainActivity.tvCount.setText("" + totalcount);
                         //deleteCartItem(mModel.get(getAdapterPosition()).getProduct_id());
                     }*/
 

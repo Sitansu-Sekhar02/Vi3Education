@@ -26,6 +26,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -73,7 +74,7 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
     private List<CartItem> cartList;
     private CartAdapter cartAdapter;
     public static final String cart_url = "https://vi3edutech.com/vi3webservices/fetch_cart_product.php";
-    public static final String continue_order = "http://vsfastirrigation.com/webservices/checkout_order.php";
+    public static final String insert_order = "https://vi3edutech.com/vi3webservices/insertorder.php";
 
 
     int final_price= 0;
@@ -189,7 +190,7 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
     }
 
     private void RazorPayCheckout(double total_price) {
-        final CheckoutFragment activity = this;
+        final FragmentActivity activity = getActivity();
 
         final Checkout co = new Checkout();
 
@@ -200,7 +201,7 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
             // set image of you brand
              options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", total_price * 100);
+            options.put("amount",  100);
 
             JSONObject preFill = new JSONObject();
             // Preset email and phone
@@ -209,7 +210,7 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
 
             options.put("prefill", preFill);
 
-            co.open(getActivity(), options);
+            co.open(activity, options);
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
                     .show();
@@ -231,55 +232,6 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
         dialog.setCancelable(false);
     }
 
-    private void  OrderConfirm() {
-        StringRequest request = new StringRequest(Request.Method.POST,continue_order, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                dialog.cancel();
-                Log.e("place order",response);
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-
-                    if(jsonObject.getString("success").equalsIgnoreCase("order placed successfully"))
-                    {
-                        preferences.set("order_id",jsonObject.getString("order_id"));
-                        preferences.set("order_date",jsonObject.getString("order_date"));
-                        preferences.set("order_total",jsonObject.getString("order_total"));
-                        preferences.set("gst_price",jsonObject.getString("gst_price"));
-                        preferences.set("total_orderPrice",jsonObject.getString("total_orderPrice"));
-                        preferences.commit();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.cancel();
-                Log.e("error_response", "" + error);
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("user_id",preferences.get("user_id"));
-                //parameters.put("product_price", String.valueOf(tax_prod_price));
-                parameters.put("order_total", String.valueOf(new DecimalFormat("##.##").format(finalResult)));
-                //parameters.put("subtotal", String.valueOf(result));
-                //parameters.put("gst_price",String.valueOf("resulOfGst"));
-               // parameters.put("total_orderPrice",String.valueOf(finalResult));
-
-                Log.e("check","wwww"+parameters);
-                return parameters;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(request);
-
-    }
 
     private void cartFragmentItem() {
         StringRequest request = new StringRequest(Request.Method.POST,cart_url, new Response.Listener<String>() {
@@ -405,32 +357,86 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
 
     @Override
     public void onPaymentSuccess(String s) {
-        try {
-            replaceFragmentWithAnimation(new YourCourseFragment());
-            /*Dialog dialog = Helper.getSuccessDialog(this);
-            TextView textViewGoHome = dialog.findViewById(R.id.textViewGoHome);
-            textViewGoHome.setOnClickListener(v -> {
-                dialog.dismiss();
-                clearCart();
-                cartCount = 0;
-                textViewCartCount.setVisibility(View.GONE);
-                fragmentManager.beginTransaction().replace(R.id.main_content, productsFragment).commit();
-            });
-            dialog.show();*/
-            Toasty.success(getActivity(), s, Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in onPaymentSuccess", e);
-        }
-    }
+        Toasty.success(getActivity(), "Payment Successfully", Toast.LENGTH_LONG).show();
 
+        if (Utils.isNetworkConnectedMainThred(getActivity())) {
+                InsertOrderApi();
+                SuccessPopup();
+                dialog.show();
+            } else {
+                // Toast.makeText(getActivity(), "No Internet Connection!", Toast.LENGTH_LONG).show();
+                Toasty.error(getActivity(), "No Internet Connection!", Toast.LENGTH_LONG).show();
+
+            }
+
+    }
     @Override
     public void onPaymentError(int i, String s) {
+        //Toast.makeText(getActivity(), "Payment failed: " + i + " " + s, Toast.LENGTH_LONG).show();
         try {
-            Toasty.error(getActivity(), "Payment failed: " + i + " " + s, Toast.LENGTH_SHORT).show();
+            Toasty.error(getActivity(), "Payment error please try again", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("OnPaymentError", "Exception in onPaymentError", e);
+        }
+        /*try {
+
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
-        }
+        }*/
     }
+
+    private void InsertOrderApi() {
+
+        StringRequest request = new StringRequest(Request.Method.POST,insert_order, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                dialog.cancel();
+                Log.e("place order",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+
+                    if(jsonObject.getString("success").equalsIgnoreCase("1"))
+                    {
+                        preferences.set("order_id",jsonObject.getString("Order Id"));
+                        preferences.set("order_date",jsonObject.getString("Oder Date"));
+                        preferences.set("order_total",jsonObject.getString("Total Amount"));
+                        preferences.commit();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.cancel();
+                Log.e("error_response", "" + error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("user_id",preferences.get("user_id"));
+                //parameters.put("product_price", String.valueOf(tax_prod_price));
+                parameters.put("order_total", String.valueOf(new DecimalFormat("##.##").format(Total_price)));
+                //parameters.put("subtotal", String.valueOf(result));
+                //parameters.put("gst_price",String.valueOf("resulOfGst"));
+                // parameters.put("total_orderPrice",String.valueOf(finalResult));
+
+                Log.e("check","wwww"+parameters);
+                return parameters;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        requestQueue.add(request);
+
+
+    }
+
+
+
 
     //=============================Adapter====================================================//
     private class CartHolder extends RecyclerView.ViewHolder {
@@ -484,7 +490,6 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
             holder.tvFinalprice.setText(mModel.get(position).getVideo_price());
 
             holder.cart_item_delete.setVisibility(View.GONE);
-
 
 
         }

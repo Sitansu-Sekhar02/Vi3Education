@@ -22,16 +22,26 @@
 
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity"/>
-        <activity android:name=".Activity.LoginActivity"/>
-        <activity android:name=".Activity.TutorRegistration"/>
-        <activity android:name=".Activity.SignupActivity"/>
+        <activity android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity android:name=".Activity.TutorRegistration"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity android:name=".Activity.SignupActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
         <activity android:name=".Activity.RazorpayActivity"/>
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_live_KsQHSXfbuwXrCx" />
 
-        <activity android:name=".Activity.SplashActivity">
+        <activity android:name=".Activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

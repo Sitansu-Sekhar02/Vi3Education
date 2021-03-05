@@ -37,6 +37,7 @@ import com.vi3.vi3education.Fragments.CartFragment;
 import com.vi3.vi3education.Fragments.ChangePasswordFragment;
 import com.vi3.vi3education.Fragments.DashboardFragment;
 import com.vi3.vi3education.Fragments.FindByTutorFragment;
+import com.vi3.vi3education.Fragments.MyAccountFragment;
 import com.vi3.vi3education.Fragments.PrivacyPolicyFragment;
 import com.vi3.vi3education.Fragments.UpcomingCourseFragment;
 import com.vi3.vi3education.Fragments.YourCourseFragment;
@@ -204,7 +205,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             replaceFragmentWithAnimation(new PrivacyPolicyFragment());
             MainActivity.bottom_nav.setVisibility(View.GONE);
 
-        } else if (id == R.id.rate_us) {
+        }
+        else if (id == R.id.nav_account) {
+            replaceFragmentWithAnimation(new MyAccountFragment());
+            MainActivity.bottom_nav.setVisibility(View.GONE);
+
+        }else if (id == R.id.rate_us) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.vi3.vi3education"));
             startActivity(intent);
 

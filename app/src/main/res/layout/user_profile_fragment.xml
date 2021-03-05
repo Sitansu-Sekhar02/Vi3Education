@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_width="@dimen/_120sdp"
+                        android:id="@+id/profile_photo"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_profile"
+                        android:layout_height="@dimen/_120sdp" />
+                    <TextView
+                        android:id="@+id/etname"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/_16sdp"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:text="@string/name"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/_16sdp"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/ic_baseline_email_24"
+                        android:text="@string/name"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tvphone"
+                        android:layout_width="match_parent"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:textSize="@dimen/_14sdp"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:background="#afafaf"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_height="wrap_content">
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+
+</RelativeLayout>
