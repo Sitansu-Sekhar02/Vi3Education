@@ -408,8 +408,8 @@ public class DashboardFragment  extends Fragment implements ExoPlayer.EventListe
             String video_path="https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
             Uri uri=Uri.parse(video_path);
             holder.videoView.setVideoURI(uri);
-            holder.videoView.requestFocus();
-            holder.videoView.start();
+            //holder.videoView.requestFocus();
+           // holder.videoView.start();
 
 
 

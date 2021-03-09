@@ -1,14 +1,9 @@
 package com.vi3.vi3education.Fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,9 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -62,7 +55,7 @@ import java.util.Map;
 import es.dmoral.toasty.Toasty;
 
 
-public class CheckoutFragment extends Fragment implements PaymentResultListener {
+public class CheckoutFragment extends Fragment  {
 
     public static final String TAG = CheckoutFragment.class.getSimpleName();
     //view
@@ -74,16 +67,10 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
     private List<CartItem> cartList;
     private CartAdapter cartAdapter;
     public static final String cart_url = "https://vi3edutech.com/vi3webservices/fetch_cart_product.php";
-    public static final String insert_order = "https://vi3edutech.com/vi3webservices/insertorder.php";
+    public static final String apply_couppon = "https://vi3edutech.com/vi3webservices/offline_affiliate.php";
 
 
-    int final_price= 0;
-    String product_id;
-    //Gridlayoutmanger
-    GridLayoutManager mGridLayoutManager;
-    double result=0;
     double Total_price=0;
-    double razor_pay_price=0;
 
     //Textview
     TextView tvProceed;
@@ -94,22 +81,17 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
     TextView Username,UserAddress;
     TextView checkoutPrice;
     TextView totalAmount;
+    EditText et_Coupon;
+    TextView tvApplyCoupon;
     Dialog dialog;
     LinearLayout llcartItem;
     ImageView emptyCart;
-    double resulOfGst;
-    double finalResult;
-
-    double tax_prod_price=0.0;
-
-    double finalProductPrice=0.0;
-
-    double prod_finalPrice=0.0;
-
-
 
     //Preference
     Preferences preferences;
+
+
+    public static double amount=0.0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,6 +107,8 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
         UserAddress=v.findViewById(R.id.tvPhoneNumber);
         checkoutPrice=v.findViewById(R.id.tvCheckoutprice);
         tvCartPrice=v.findViewById(R.id.tvCartprice);
+        et_Coupon=v.findViewById(R.id.EtApplyCoupon);
+        tvApplyCoupon=v.findViewById(R.id.tvApply);
 
 
         emptyCart = v.findViewById(R.id.gif);
@@ -161,62 +145,84 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
             }
         });
 
+        tvApplyCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_Coupon.getText().toString().trim().length() == 0) {
+                    et_Coupon.setError("Please enter a valid coupon");
+                    et_Coupon.requestFocus();
+                }else {
+                    AapplyCouponApi();
+                    ProgressForCheckout();
+                    dialog.show();
+
+                }
+
+            }
+        });
 
         tvProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RazorPayCheckout(Total_price);
-               /* Intent intent = new Intent(getActivity(), RazorpayActivity.class);
-                intent.putExtra("amount", String.valueOf(Total_price));
-                startActivity(intent);
 
                 Intent i = new Intent(getActivity(), RazorpayActivity.class);
+                //i.putExtra("price","100");
+                amount=Total_price;
+                Log.e("rrrr",""+Total_price);
                 startActivity(i);
-*/
-               /* if (Utils.isNetworkConnectedMainThred(getActivity())) {
-                     OrderConfirm();
-                     SuccessPopup();
-                     dialog.show();
-                } else {
-                    Toasty.error(getActivity(), "No Internet Connection!", Toast.LENGTH_SHORT).show();
-                }*/
-                //AdminDashActivity.count++;
+
+
             }
         });
-
 
 
         return v;
     }
 
-    private void RazorPayCheckout(double total_price) {
-        final FragmentActivity activity = getActivity();
+    private void AapplyCouponApi() {
+        StringRequest request = new StringRequest(Request.Method.POST,apply_couppon, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //et_Coupon.setText("");
+                dialog.cancel();
+                Log.e("apply code",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
 
-        final Checkout co = new Checkout();
+                    if(jsonObject.getString("error").equalsIgnoreCase("false"))
+                    {
+                        preferences.set("referal_code",jsonObject.getString("agentreferalcode"));
+                        preferences.commit();
+                        Toasty.success(getActivity(),"Coupon applied successfully",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toasty.error(getActivity(),"Invalid coupon",Toast.LENGTH_SHORT).show();
+                    }
 
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", "VI3 EDUTECH PVT.LTD.");
-            options.put("description", "Video Tutorial");// You can omit the image option to fetch the image from dashboard
-            // set image of you brand
-             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-            options.put("currency", "INR");
-            options.put("amount",  100);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            JSONObject preFill = new JSONObject();
-            // Preset email and phone
-            // preFill.put("email", "test@razorpay.com");
-            // preFill.put("contact", "123456789");
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.cancel();
+                Log.e("error_response", "" + error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("offlinereferalcode",et_Coupon.getText().toString());
+                Log.e("code",""+parameters);
+                return parameters;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        requestQueue.add(request);
 
-            options.put("prefill", preFill);
-
-            co.open(activity, options);
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
-                    .show();
-            e.printStackTrace();
-        }
     }
+
 
 
     private void ProgressForCheckout() {
@@ -273,6 +279,9 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
                             Total_price = Double.parseDouble(String.valueOf(Total_price + price));
                             Log.e("price add",""+Total_price);
                             checkoutPrice.setText(String.valueOf( Total_price));
+                            /*preferences.set("Total_price", String.valueOf(Total_price));
+                            Log.e("Total_price",""+preferences.set("Total_price"+Total_price));*/
+
                             checkoutPrice.setText("Total Amount \u20b9"+(Total_price));
 
                         }
@@ -321,120 +330,6 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
     }
-    public void SuccessPopup() {
-        final Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.alert);
-        Window window = dialog.getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.CENTER;
-        wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
-        window.setAttributes(wlp);
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        //  dialog.show();
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.getWindow().setBackgroundDrawableResource(R.color.black_trans);
-        dialog.show();
-
-        Thread timerThread = new Thread() {
-            public void run() {
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    dialog.dismiss();
-                    preferences.set("count", 0);
-                    preferences.commit();
-                    //replaceFragmentWithAnimation(new OrderConfirmationFragment());
-                }
-            }
-        };
-
-        timerThread.start();
-    }
-
-    @Override
-    public void onPaymentSuccess(String s) {
-        Toasty.success(getActivity(), "Payment Successfully", Toast.LENGTH_LONG).show();
-
-        if (Utils.isNetworkConnectedMainThred(getActivity())) {
-                InsertOrderApi();
-                SuccessPopup();
-                dialog.show();
-            } else {
-                // Toast.makeText(getActivity(), "No Internet Connection!", Toast.LENGTH_LONG).show();
-                Toasty.error(getActivity(), "No Internet Connection!", Toast.LENGTH_LONG).show();
-
-            }
-
-    }
-    @Override
-    public void onPaymentError(int i, String s) {
-        //Toast.makeText(getActivity(), "Payment failed: " + i + " " + s, Toast.LENGTH_LONG).show();
-        try {
-            Toasty.error(getActivity(), "Payment error please try again", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e("OnPaymentError", "Exception in onPaymentError", e);
-        }
-        /*try {
-
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in onPaymentError", e);
-        }*/
-    }
-
-    private void InsertOrderApi() {
-
-        StringRequest request = new StringRequest(Request.Method.POST,insert_order, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                dialog.cancel();
-                Log.e("place order",response);
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-
-                    if(jsonObject.getString("success").equalsIgnoreCase("1"))
-                    {
-                        preferences.set("order_id",jsonObject.getString("Order Id"));
-                        preferences.set("order_date",jsonObject.getString("Oder Date"));
-                        preferences.set("order_total",jsonObject.getString("Total Amount"));
-                        preferences.commit();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.cancel();
-                Log.e("error_response", "" + error);
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("user_id",preferences.get("user_id"));
-                //parameters.put("product_price", String.valueOf(tax_prod_price));
-                parameters.put("order_total", String.valueOf(new DecimalFormat("##.##").format(Total_price)));
-                //parameters.put("subtotal", String.valueOf(result));
-                //parameters.put("gst_price",String.valueOf("resulOfGst"));
-                // parameters.put("total_orderPrice",String.valueOf(finalResult));
-
-                Log.e("check","wwww"+parameters);
-                return parameters;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
-        requestQueue.add(request);
-
-
-    }
-
 
 
 
@@ -443,16 +338,13 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
         TextView tvOldPrice;
         TextView cart_item_number;
         TextView tvSave;
-        ImageButton cart_quant_minus;
-        ImageButton cart_quant_add;
         TextView tvProductName,qntyPrice;
         TextView tvFinalprice,tvcartProductSize;
-        EditText productQuantity;
-        ImageButton checkquantity;
         TextView cart_item_delete;
         ImageView cart_item_image;
-        TextView tvDelCharge;
-        TextView tvSize;
+        LinearLayout LinkShare;
+        TextView tvFblink,tvWhatsapplink;
+
 
 
         public CartHolder(View itemView) {
@@ -466,6 +358,9 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
             cart_item_image = itemView.findViewById(R.id.cart_item_image);
             cart_item_delete = itemView.findViewById(R.id.cart_item_delete);
             tvProductName = itemView.findViewById(R.id.tvcartProductName);
+            //tvFblink=itemView.findViewById(R.id.tvLinkfb);
+            tvWhatsapplink=itemView.findViewById(R.id.tvWhatsaplink);
+            LinkShare=itemView.findViewById(R.id.linkLinear);
         }
     }
 
@@ -490,7 +385,32 @@ public class CheckoutFragment extends Fragment implements PaymentResultListener 
             holder.tvFinalprice.setText(mModel.get(position).getVideo_price());
 
             holder.cart_item_delete.setVisibility(View.GONE);
+            holder.LinkShare.setVisibility(View.VISIBLE);
 
+           /* holder.tvFblink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });*/
+            final String referal_code=preferences.get("refral");
+            Log.e("referalCode",""+referal_code);
+
+            holder.tvWhatsapplink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent shareIntent =   new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    String shareBody="VI3 EDUTECH Pvt.Ltd.";
+                    String subject="Referral Code";
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT,subject);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                    String app_url = "https://play.google.com/store/apps/details?id=com.vi3.vi3education"+"/"+referal_code;
+                    shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,app_url);
+                    startActivity(Intent.createChooser(shareIntent, "Share via"));
+                }
+            });
 
         }
         public int getItemCount() {

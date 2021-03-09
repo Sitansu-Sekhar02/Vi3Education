@@ -6,14 +6,17 @@
     <EditText
         android:layout_width="match_parent"
         android:id="@+id/et_search"
-        android:hint="Search Course..."
+        android:hint="search Course..."
+        android:textColorHint="#939292"
         android:imeOptions="actionSearch"
+        android:padding="@dimen/_5sdp"
         android:singleLine="true"
+        android:textColor="@color/white"
         android:iconifiedByDefault="false"
         android:inputType="text"
         android:drawablePadding="@dimen/_10sdp"
-        android:drawableLeft="@drawable/ic_search_24"
-        android:background="@color/grey_300"
+        android:drawableRight="@drawable/ic_baseline_search_24"
+        android:background="@color/colorPrimary"
         android:layout_height="@dimen/_40sdp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/show_allCategory"

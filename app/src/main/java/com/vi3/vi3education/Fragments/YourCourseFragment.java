@@ -73,6 +73,7 @@ public class YourCourseFragment extends Fragment {
     public  static int REQUEST_PERMISSION=1;
     boolean boolean_permission;
     Preferences preferences;
+    TextView getCert;
 
     private List<YourCourseModel> course_list;
     private YourCourseAdapter course;
@@ -81,6 +82,7 @@ public class YourCourseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.your_course_fragment, container, false);
         recyclerView = view.findViewById(R.id.your_courses);
+        getCert=view.findViewById(R.id.tvGetCert);
 
         course_list=new ArrayList<>();
 
@@ -89,6 +91,13 @@ public class YourCourseFragment extends Fragment {
 
         director=new File("/mnt/");
         permisForVideo();
+
+        getCert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragmentWithAnimation(new QuizFragment(),"");
+            }
+        });
 
         if (Utils.isNetworkConnectedMainThred(getActivity())) {
             YourCourseApi();

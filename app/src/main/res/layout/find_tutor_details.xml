@@ -36,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_5sdp"            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +45,6 @@
                 android:textSize="@dimen/_14sdp"/>
             <TextView
                 android:id="@+id/tutor_email"
-
                 android:layout_marginLeft="@dimen/_18sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

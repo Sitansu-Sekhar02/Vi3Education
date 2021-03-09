@@ -317,7 +317,7 @@ public class LoginActivity extends AppCompatActivity  {
                 @Override
                 public void onResponse(String response) {
                     dialog.cancel();
-                    Log.d("success", "onResponse: "+response);
+                    Log.e("success", "onResponse: "+response);
                     pass.setText("");
                     String res=response;
                     try {
@@ -332,17 +332,16 @@ public class LoginActivity extends AppCompatActivity  {
                             String password=user.getString("password");
                             String user_id=user.getString("id");
                             String name=user.getString("username");
-                           // String address=user.getString("address");
+                            String referal_code=user.getString("refral");
                             String contact=user.getString("contactno");
 
                             preferences.set("user_id",user_id);
                             preferences.set("email",useremail);
                             preferences.set("password",password);
-                           // preferences.set("usertype",user_type);
+                            //preferences.set("usertype",user_type);
                             preferences.set("name",name);
-                           // preferences.set("address",address);
+                            preferences.set("refral",referal_code);
                             preferences.set("contact",contact);
-
                             preferences.commit();
 
                             Intent in=new Intent(LoginActivity.this,MainActivity.class);

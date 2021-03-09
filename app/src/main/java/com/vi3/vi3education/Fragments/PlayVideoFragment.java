@@ -69,7 +69,7 @@ public class PlayVideoFragment extends Fragment {
 
 
         Bundle b = getArguments();
-         order_id = b.getString("video_url");
+        order_id = b.getString("video_url");
     /*    Bundle mBundle = new Bundle();
         mBundle = getArguments();
         mBundle.getString("key", String.valueOf(-1));
@@ -81,13 +81,10 @@ public class PlayVideoFragment extends Fragment {
 
     private void playerVideo() {
         String video_path="https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
-
         Uri uri=Uri.parse(video_path);
         videoView.setVideoURI(uri);
         videoView.requestFocus();
         videoView.start();
-
-
 
         MediaController mediaController=new MediaController(getActivity());
         videoView.setMediaController(mediaController);

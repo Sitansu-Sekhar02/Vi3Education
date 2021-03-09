@@ -41,7 +41,7 @@ public class OrderConfirmationFragment extends Fragment {
         preferences=new Preferences(getActivity());
         orderNumber.setText(preferences.get("order_id"));
         purchaseDate.setText(preferences.get("order_date"));
-        billingMail.setText(preferences.get("useremail"));
+        billingMail.setText(preferences.get("email"));
         tvOrderTotal.setText(preferences.get("order_total"));
 
         MainActivity.tvHeaderText.setText("Order Confirmation");
@@ -74,7 +74,6 @@ public class OrderConfirmationFragment extends Fragment {
 
     public void replaceFragmentWithAnimation(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
         transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();

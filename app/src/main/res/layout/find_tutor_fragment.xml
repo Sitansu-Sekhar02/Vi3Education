@@ -17,7 +17,7 @@
             android:layout_height="@dimen/_30sdp"
             android:text="@string/searchtutor"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#CAC9C9"
             android:textSize="@dimen/_16sdp"
             android:background="@color/colorPrimary"/>
             <LinearLayout
