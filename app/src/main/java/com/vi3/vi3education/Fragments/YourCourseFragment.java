@@ -3,6 +3,7 @@ package com.vi3.vi3education.Fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
@@ -43,6 +44,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.vi3.vi3education.Activity.QuizActivity;
 import com.vi3.vi3education.Activity.Utils;
 import com.vi3.vi3education.Model.CartItem;
 import com.vi3.vi3education.Model.YourCourseModel;
@@ -74,6 +76,7 @@ public class YourCourseFragment extends Fragment {
     boolean boolean_permission;
     Preferences preferences;
     TextView getCert;
+    public  static  String video_id;
 
     private List<YourCourseModel> course_list;
     private YourCourseAdapter course;
@@ -95,6 +98,7 @@ public class YourCourseFragment extends Fragment {
         getCert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 replaceFragmentWithAnimation(new QuizFragment(),"");
             }
         });
@@ -141,32 +145,6 @@ public class YourCourseFragment extends Fragment {
         }
     }
 
-    /*private ArrayList<File> getFile(File director) {
-        File listFile[]=director.listFiles();
-        if (listFile!=null &&listFile.length>0){
-            for (int i=0;i<listFile.length;i++){
-                if (listFile[i].isDirectory()){
-                    getFile(listFile[i]);
-                }
-                else
-                {
-                    boolean_permission=false;
-                    if (listFile[i].getName().endsWith(".mp4")){
-                        for (int j=0;j<course_list.size();j++){
-                            if (course_list.get(j).getCourse_name().equals(listFile[i].getName())){
-                                boolean_permission=true;
-                            }else{
-
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-
-        return course_list;
-    }*/
 
     private void ProgressForCourse() {
         dialog = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
@@ -198,7 +176,7 @@ public class YourCourseFragment extends Fragment {
 
                             YourCourseModel list = new YourCourseModel();
                             String video_name = object.getString("video_name");
-                            String video_id = object.getString("product_id");
+                            video_id = object.getString("product_id");
                             String video_image = "https://vi3edutech.com/uploadvideo/" + object.getString("img");
                             String video_url = "https://vi3edutech.com/uploadvideo/"+object.getString("vname");
 
@@ -274,6 +252,11 @@ public class YourCourseFragment extends Fragment {
         public void onBindViewHolder(@NonNull final Holder holder, final int position) {
 
             holder.tvCatName.setText(mModel.get(position).getCourse_name());
+            final String video_id=mModel.get(position).getCourse_id();
+            String item = String.valueOf(mModel.get(holder.getAdapterPosition()));
+            Log.e("item",""+item);
+
+            Log.e("videoId",""+video_id);
             Glide.with(mContext)
                     .load(mModel.get(position).getCourse_image())
                     .into(holder.image);
@@ -286,6 +269,7 @@ public class YourCourseFragment extends Fragment {
             holder.cardMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     replaceFragmentWithAnimation(new PlayVideoFragment(),video_url);
                    /* Fragment fragment = new Fragment();
                     Bundle bundle = new Bundle();
@@ -294,6 +278,17 @@ public class YourCourseFragment extends Fragment {
                    /* String id=mModel.get(position).getCategory_id();
                     Log.e("success" ,""+id);
                     Fragment fragment = new Fragment();*/
+                }
+            });
+            holder.tvGetCert.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getActivity(), QuizActivity.class);
+                    i.putExtra("video_id",video_id);
+                    startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
+
+                 // replaceFragmentWithAnimation(new QuizFragment(),"");
                 }
             });
         }
@@ -309,14 +304,18 @@ public class YourCourseFragment extends Fragment {
     }
 
     private class Holder extends RecyclerView.ViewHolder {
-        CardView cardMain;
+        LinearLayout cardMain;
         ImageView image;
         TextView tvCatName;
+        TextView tvGetCert;
+        CardView cardView_c;
         public Holder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.course_image);
             tvCatName = itemView.findViewById(R.id.tvCourseName);
             cardMain = itemView.findViewById(R.id.card_main);
+            tvGetCert=itemView.findViewById(R.id.tvGetCert);
+            cardView_c=itemView.findViewById(R.id.Cardview_click);
         }
     }
     public void replaceFragmentWithAnimation(Fragment fragment, String video_url) {

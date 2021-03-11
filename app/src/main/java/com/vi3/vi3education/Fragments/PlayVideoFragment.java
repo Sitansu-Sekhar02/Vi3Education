@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class PlayVideoFragment extends Fragment {
         MainActivity.bottom_nav.setVisibility(View.GONE);
         MainActivity.tvCount.setVisibility(View.GONE);
 
+
+
         MainActivity.iv_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +78,8 @@ public class PlayVideoFragment extends Fragment {
         mBundle.getString("key", String.valueOf(-1));
         getActivity().getActionBar().hide();*/
         playerVideo();
+
+
 
         return view;
     }

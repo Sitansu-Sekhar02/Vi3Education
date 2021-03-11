@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,24 @@ public class ChangePasswordFragment extends Fragment {
 
         et_userName.setText(preferences.get("email"));
         et_userName.setEnabled(false);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        startActivity(i);
+                        getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
+                        // replaceFragmentWithAnimation(new DashboardFragment());
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         MainActivity.tvHeaderText.setText("Change Password");
         MainActivity.iv_menu.setImageResource(R.drawable.ic_baseline_arrow_back_ios_24);

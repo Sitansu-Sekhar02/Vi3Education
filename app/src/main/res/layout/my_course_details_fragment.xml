@@ -3,15 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardUseCompatPadding="true"
-    android:id="@+id/card_main"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_100sdp"
+    android:id="@+id/Cardview_click"
+    android:layout_height="@dimen/_150sdp"
     app:cardBackgroundColor="@color/grey_100"
     app:cardCornerRadius="@dimen/_10sdp">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/card_main"
+        android:layout_height="@dimen/_100sdp">
         <ImageView
             android:padding="@dimen/_5sdp"
             android:id="@+id/course_image"
@@ -27,8 +34,8 @@
             android:layout_height="match_parent">
 
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_height="match_parent">
@@ -45,12 +52,47 @@
                     app:font_name="NunitoRegular.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCourseName"
+                    android:src="@drawable/ic_arrow_black"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    />
 
-            </LinearLayout>
+
+            </RelativeLayout>
 
 
         </LinearLayout>
 
+    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="#959292"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:layout_gravity="end">
+        <TextView
+            android:id="@+id/tvGetCert"
+            android:layout_width="wrap_content"
+            android:background="@drawable/view_border"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorPrimary"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"
+            android:text="Get Certificate"/>
+
+    </RelativeLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

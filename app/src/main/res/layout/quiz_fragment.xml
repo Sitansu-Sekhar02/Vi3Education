@@ -23,19 +23,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Questions :"
+        android:text="Questions:"
         android:id="@+id/tvque"
         android:layout_below="@+id/DispName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="@dimen/_15sdp"/>
     <TextView
+        android:id="@+id/Tv_questions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvque"
         android:textSize="@dimen/_12sdp"
         android:textColor="@color/black"
-        android:text="What is Class and Object ?"
+        android:text="."
         android:layout_marginTop="@dimen/_10sdp"/>
 
     <RadioGroup
@@ -48,32 +49,31 @@
         android:layout_centerVertical="true">
 
 
-
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A"
+            android:text=""
             android:id="@+id/radioButton"
             android:checked="false" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="B"
+            android:text=""
             android:id="@+id/radioButton2"
             android:checked="false" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="C"
+            android:text=""
             android:id="@+id/radioButton3"
             android:checked="false" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="D"
+            android:text=""
             android:id="@+id/radioButton4"
             android:checked="false" />
 

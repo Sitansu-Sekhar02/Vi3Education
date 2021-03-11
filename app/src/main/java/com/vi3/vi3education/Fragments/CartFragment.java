@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,6 +118,24 @@ public class CartFragment extends Fragment {
         MainActivity.ivCart.setVisibility(View.GONE);
         MainActivity.bottom_nav.setVisibility(View.GONE);
         MainActivity.tvCount.setVisibility(View.GONE);
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        //replaceFragmentWithAnimation(new CartFragment());
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        startActivity(i);
+                        getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         MainActivity.iv_menu.setOnClickListener(new View.OnClickListener() {
             @Override

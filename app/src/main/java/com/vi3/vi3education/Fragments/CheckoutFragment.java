@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,6 +122,22 @@ public class CheckoutFragment extends Fragment  {
 
         Username.setText(preferences.get("name"));
         UserAddress.setText(preferences.get("email"));
+
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                         replaceFragmentWithAnimation(new CartFragment());
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
 
         MainActivity.ivCart.setVisibility(View.GONE);
