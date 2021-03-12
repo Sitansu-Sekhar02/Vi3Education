@@ -18,6 +18,17 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="00:25"
+        android:textColor="@color/yellow_900"
+        android:textSize="@dimen/_18sdp"
+        android:id="@+id/Tvtimer"
+        android:layout_below="@+id/DispName"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/_10sdp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,10 +36,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Questions:"
         android:id="@+id/tvque"
-        android:layout_below="@+id/DispName"
+        android:layout_below="@+id/Tvtimer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/_15sdp"/>
+        android:layout_marginTop="@dimen/_10sdp"/>
     <TextView
         android:id="@+id/Tv_questions"
         android:layout_width="match_parent"
@@ -84,7 +95,7 @@
         android:layout_height="wrap_content"
         android:text="Next Question"
         android:id="@+id/button3"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:layout_below="@+id/answersgrp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -96,7 +107,7 @@
         android:layout_height="wrap_content"
         android:text="Quit"
         android:id="@+id/buttonquit"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@+id/button3"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

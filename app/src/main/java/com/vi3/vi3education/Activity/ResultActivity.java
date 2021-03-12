@@ -31,6 +31,7 @@ public class ResultActivity extends AppCompatActivity {
         btnRestart = (Button) findViewById(R.id.btnRestart);
         btnGetCert=findViewById(R.id.btnGetCert);
 
+
         StringBuffer sb = new StringBuffer();
         sb.append("Correct answers: " + QuizActivity.correct + "\n");
         StringBuffer sb2 = new StringBuffer();
@@ -60,7 +61,8 @@ public class ResultActivity extends AppCompatActivity {
             new CountDownTimer(5000, 1000) { // adjust the milli seconds here
                 public void onTick(long millisUntilFinished) {
                 }
-                public void onFinish() { backPressed = 0;
+                public void onFinish() {
+                    backPressed = 0;
                 }
             }.start();
         }

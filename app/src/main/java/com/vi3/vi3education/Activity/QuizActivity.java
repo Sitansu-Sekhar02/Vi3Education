@@ -2,7 +2,10 @@ package com.vi3.vi3education.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -35,6 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
@@ -55,11 +59,22 @@ public class QuizActivity extends AppCompatActivity {
     String  answer;
     String quest;
     TextView tv;
+    TextView counter;
     Button submitbutton, quitbutton;
     RadioGroup radio_g;
     RadioButton rb1,rb2,rb3,rb4;
     int flag=0;
     public static int marks=0,correct=0,wrong=0;
+    private CountDownTimer countDownTimer;
+    private long backPressedTime;
+    public static final String EXTRA_SCORE = "extraScore";
+    private static final long COUNTDOWN_IN_MILLIS = 25000;
+    private long timeLeftInMillis;
+    private ColorStateList textColorDefaultRb;
+    private ColorStateList textColorDefaultCd;
+
+
+
 
     String id;
     Dialog dialog;
@@ -82,6 +97,7 @@ public class QuizActivity extends AppCompatActivity {
 
         tvUsername=findViewById(R.id.DispName);
         Tv_questions=findViewById(R.id.Tv_questions);
+        counter=findViewById(R.id.Tvtimer);
 
 
         submitbutton=(Button)findViewById(R.id.button3);
@@ -89,7 +105,6 @@ public class QuizActivity extends AppCompatActivity {
 
 
         tvUsername.setText("Hello,"+preferences.get("name"));
-
 
         if (Utils.isNetworkConnectedMainThred(this)) {
             QuizApi();
@@ -104,11 +119,7 @@ public class QuizActivity extends AppCompatActivity {
         rb2=(RadioButton)findViewById(R.id.radioButton2);
         rb3=(RadioButton)findViewById(R.id.radioButton3);
         rb4=(RadioButton)findViewById(R.id.radioButton4);
-       /* tv.setText(questions[flag]);
-        rb1.setText(opt[0]);
-        rb2.setText(opt[1]);
-        rb3.setText(opt[2]);
-        rb4.setText(opt[3]);*/
+
 
     }
 
@@ -142,13 +153,13 @@ public class QuizActivity extends AppCompatActivity {
 
                             QuizModel list = new QuizModel();
                             question = object.getString("question");
+                            Log.e("qqq",""+question);
                             video_id = object.getString("id");
                             option1 = object.getString("option1");
                             option2 = object.getString("option2");
                             option3 = object.getString("option3");
                             option4 = object.getString("option4");
                             answer = object.getString("correct_ans");
-
 
                             list.setQuestions(question);
                             list.setQuiz_id(video_id);
@@ -160,18 +171,19 @@ public class QuizActivity extends AppCompatActivity {
 
                             quiz_list.add(list);
 
-
-                            //quest=question;
                         }
-                        final String Questions[]={question};
+                        final String Questions[]={String.valueOf(quiz_list)};
+                        Log.e("questions",""+Questions);
                         final String Opt[]={option1,option2,option3,option4};
                         final String Ans[]={answer};
 
-                        Tv_questions.setText(Questions[flag]);
-                        rb1.setText(Opt[0]);
-                        rb2.setText(Opt[1]);
-                        rb3.setText(Opt[2]);
-                        rb4.setText(Opt[3]);
+                        Tv_questions.setText(quiz_list.get(flag).getQuestions());
+                        rb1.setText(quiz_list.get(flag).getOption_1());
+                        rb2.setText(quiz_list.get(flag).getOption_2());
+                        rb3.setText(quiz_list.get(flag).getOption_3());
+                        rb4.setText(quiz_list.get(flag).getOption_4());
+                        timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+                        startCountDown();
 
                         submitbutton.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -200,13 +212,14 @@ public class QuizActivity extends AppCompatActivity {
 
                 /*if (score != null)
                     score.setText(""+correct);*/
-                if(flag<Questions.length)
+                if(flag<quiz_list.get(flag).getQuestions().length())
                 {
-                    tv.setText(Questions[flag]);
-                    rb1.setText(Opt[flag*4]);
-                    rb2.setText(Opt[flag*4 +1]);
-                    rb3.setText(Opt[flag*4 +2]);
-                    rb4.setText(Opt[flag*4 +3]);
+                    tv.setText(quiz_list.get(flag).getQuestions());
+                    rb1.setText(quiz_list.get(flag*4).getOption_1());
+                    rb2.setText(quiz_list.get(flag*4 +1).getOption_1());
+                    rb3.setText(quiz_list.get(flag*4 +2).getOption_1());
+                    rb4.setText(quiz_list.get(flag*4 +3).getOption_1());
+
                 }
                 else
                 {
@@ -225,8 +238,6 @@ public class QuizActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-
-
                     }
                 }
                 catch (JSONException e) {
@@ -240,7 +251,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 dialog.cancel();
                 Log.e("error_response", "" + error);
-                // refreshLayout.setRefreshing(false);
 
             }
         })
@@ -255,6 +265,34 @@ public class QuizActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(request);
 
+    }
+
+    private void startCountDown() {
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDownText();
+               // checkAnswer();
+            }
+        }.start();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        counter.setText(timeFormatted);
+        if (timeLeftInMillis < 10000) {
+            counter.setTextColor(Color.RED);
+        } else {
+           // counter.setTextColor(textColorDefaultCd);
+        }
     }
 
 }
