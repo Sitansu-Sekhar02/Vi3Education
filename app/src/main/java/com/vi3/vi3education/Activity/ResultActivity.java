@@ -31,7 +31,6 @@ public class ResultActivity extends AppCompatActivity {
         btnRestart = (Button) findViewById(R.id.btnRestart);
         btnGetCert=findViewById(R.id.btnGetCert);
 
-
         StringBuffer sb = new StringBuffer();
         sb.append("Correct answers: " + QuizActivity.correct + "\n");
         StringBuffer sb2 = new StringBuffer();
@@ -63,6 +62,7 @@ public class ResultActivity extends AppCompatActivity {
                 }
                 public void onFinish() {
                     backPressed = 0;
+
                 }
             }.start();
         }
@@ -72,5 +72,6 @@ public class ResultActivity extends AppCompatActivity {
             android.os.Process.killProcess(android.os.Process.myPid());
         }
     }
+
 
 }

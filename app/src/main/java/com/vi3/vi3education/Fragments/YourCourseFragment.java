@@ -114,6 +114,7 @@ public class YourCourseFragment extends Fragment {
 
     }
 
+
     private void permisForVideo() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!=
                 PackageManager.PERMISSION_GRANTED){
@@ -126,7 +127,6 @@ public class YourCourseFragment extends Fragment {
         }else{
             /*boolean_permission=true;
             getFile(director);*/
-
 
         }
     }

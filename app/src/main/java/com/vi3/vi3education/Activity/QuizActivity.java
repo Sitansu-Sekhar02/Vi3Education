@@ -74,8 +74,6 @@ public class QuizActivity extends AppCompatActivity {
     private ColorStateList textColorDefaultCd;
 
 
-
-
     String id;
     Dialog dialog;
     //String answers[]={};
@@ -103,7 +101,6 @@ public class QuizActivity extends AppCompatActivity {
         submitbutton=(Button)findViewById(R.id.button3);
         quitbutton=(Button)findViewById(R.id.buttonquit);
 
-
         tvUsername.setText("Hello,"+preferences.get("name"));
 
         if (Utils.isNetworkConnectedMainThred(this)) {
@@ -119,7 +116,6 @@ public class QuizActivity extends AppCompatActivity {
         rb2=(RadioButton)findViewById(R.id.radioButton2);
         rb3=(RadioButton)findViewById(R.id.radioButton3);
         rb4=(RadioButton)findViewById(R.id.radioButton4);
-
 
     }
 
@@ -236,6 +232,7 @@ public class QuizActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 Intent intent=new Intent(getApplicationContext(),ResultActivity.class);
                                 startActivity(intent);
+
                             }
                         });
                     }
@@ -293,6 +290,7 @@ public class QuizActivity extends AppCompatActivity {
         } else {
            // counter.setTextColor(textColorDefaultCd);
         }
+
     }
 
 }
