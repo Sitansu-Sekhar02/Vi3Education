@@ -95,14 +95,14 @@ public class YourCourseFragment extends Fragment {
         director=new File("/mnt/");
         permisForVideo();
 
-        getCert.setOnClickListener(new View.OnClickListener() {
+        /*getCert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 replaceFragmentWithAnimation(new QuizFragment(),"");
             }
         });
-
+*/
         if (Utils.isNetworkConnectedMainThred(getActivity())) {
             YourCourseApi();
             ProgressForCourse();
@@ -113,7 +113,6 @@ public class YourCourseFragment extends Fragment {
         return  view;
 
     }
-
 
     private void permisForVideo() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!=

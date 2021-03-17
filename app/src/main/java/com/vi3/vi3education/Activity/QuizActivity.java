@@ -1,6 +1,8 @@
 package com.vi3.vi3education.Activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -215,7 +217,6 @@ public class QuizActivity extends AppCompatActivity {
                     rb2.setText(quiz_list.get(flag*4 +1).getOption_1());
                     rb3.setText(quiz_list.get(flag*4 +2).getOption_1());
                     rb4.setText(quiz_list.get(flag*4 +3).getOption_1());
-
                 }
                 else
                 {
@@ -290,6 +291,32 @@ public class QuizActivity extends AppCompatActivity {
         } else {
            // counter.setTextColor(textColorDefaultCd);
         }
+
+    }
+
+    public void onBackPressed() {
+
+        AlertDialog.Builder alertdialog=new AlertDialog.Builder(this);
+        alertdialog.setTitle("Warning");
+        alertdialog.setMessage("Are you sure you Want to exit the tutorial???");
+        alertdialog.setPositiveButton("yes", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(QuizActivity.this,MainActivity.class);
+                startActivity(intent);
+                QuizActivity.this.finish();
+            }
+        });
+
+        alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alert=alertdialog.create();
+        alertdialog.show();
 
     }
 
