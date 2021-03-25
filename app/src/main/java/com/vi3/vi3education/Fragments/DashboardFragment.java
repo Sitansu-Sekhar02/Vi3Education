@@ -240,13 +240,13 @@ public class DashboardFragment  extends Fragment implements ExoPlayer.EventListe
                             String video_url= "https://vi3edutech.com/uploadvideo/"+Object.getString("vname");
                             Log.e("video_url",""+video_url);
 
-                            String video_price = Object.getString("price");
+                            //String video_price = Object.getString("price");
                             //String video_rating = Object.getString("vehicle_compony");
 
                             list.setVideo_id(video_id);
                             list.setSubject_name(video_name);
                             list.setVideo_url(video_url);
-                            list.setVideo_price(video_price);
+                          //  list.setVideo_price(video_price);
 
                             categoryList.add(list);
                         }
@@ -373,7 +373,7 @@ public class DashboardFragment  extends Fragment implements ExoPlayer.EventListe
         @Override
         public void onBindViewHolder(@NonNull final Holder holder, final int position) {
             holder.subject.setText(mModel.get(position).getSubject_name());
-            holder.video_price.setText(mModel.get(position).getVideo_price());
+           // holder.video_price.setText(mModel.get(position).getVideo_price());
 
             holder.buy_video.setOnClickListener(new View.OnClickListener() {
                 @Override

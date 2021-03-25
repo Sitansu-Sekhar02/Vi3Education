@@ -52,4 +52,7 @@
     <string name="razorpay_key_id">rzp_live_KsQHSXfbuwXrCx</string>
     <string name="razorpay_secret_key">FFIQ14zSAe6D7K0pixihLOHA</string>
     <string name="paymentmode">Please select payment method</string>
+    <string name="withdraw">Withdraw your wallet money to your bank account.</string>
+    <string name="share_now">Withdraw</string>
+    <string name="wallet">Wallet</string>
 </resources>

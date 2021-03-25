@@ -3,6 +3,7 @@ package com.vi3.vi3education.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,6 +40,11 @@ public class ResultActivity extends AppCompatActivity {
         tv.setText(sb);
         tv2.setText(sb2);
         tv3.setText(sb3);
+        int finalScore=2;
+       // int num1 = sb3;
+
+        //final  String Score= String.valueOf(sb3*finalScore);
+       // Log.e("resultFinal",""+Score);
 
         QuizActivity.correct=0;
         QuizActivity.wrong=0;
@@ -48,6 +54,16 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent in = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(in);
+            }
+        });
+
+        if (QuizActivity.correct>10){
+
+        }
+        btnGetCert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

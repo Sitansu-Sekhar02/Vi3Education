@@ -24,7 +24,7 @@ import com.vi3.vi3education.R;
 public class PlayVideoFragment extends Fragment {
     VideoView videoView;
     int position=-1;
-    String order_id;
+    String video_url;
     View view;
     @Nullable
     @Override
@@ -44,26 +44,14 @@ public class PlayVideoFragment extends Fragment {
 
 
 
+
         MainActivity.iv_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
-               /* if(AppSettings.fromPage.equalsIgnoreCase("1"))
-                {
-                    Intent i = new Intent(getActivity(), DrawerActivity.class);
-                    startActivity(i);
-                    getActivity().overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
-                }
-                else if(AppSettings.fromPage.equalsIgnoreCase("2"))
-                {
-                    replaceFragmentWithAnimation(new ProductListingFragment());
-                }
-                else
-                {
 
-                }*/
             }
         });
 
@@ -72,20 +60,16 @@ public class PlayVideoFragment extends Fragment {
 
 
         Bundle b = getArguments();
-        order_id = b.getString("video_url");
-    /*    Bundle mBundle = new Bundle();
-        mBundle = getArguments();
-        mBundle.getString("key", String.valueOf(-1));
-        getActivity().getActionBar().hide();*/
+        video_url = b.getString("video_url");
         playerVideo();
-
 
 
         return view;
     }
+    //"https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4"
 
     private void playerVideo() {
-        String video_path="https://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4";
+        String video_path=video_url;
         Uri uri=Uri.parse(video_path);
         videoView.setVideoURI(uri);
         videoView.requestFocus();

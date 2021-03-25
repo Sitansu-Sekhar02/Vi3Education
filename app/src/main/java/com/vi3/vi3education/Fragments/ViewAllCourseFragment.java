@@ -153,9 +153,9 @@ public class ViewAllCourseFragment extends Fragment {
                             JSONObject Object = jsonArray.getJSONObject(i);
                             //model class
                             GetAllCourseModel list = new GetAllCourseModel();
-                            String video_id = Object.getString("id");
-                            String video_name = Object.getString("video_name");
-                            String video_image="https://vi3edutech.com/uploadvideo/"+ Object.getString("img");
+                            String video_id = Object.getString("course_id");
+                            String video_name = Object.getString("course_name");
+                            String video_image="https://vi3edutech.com/images/course_images/"+ Object.getString("image");
                             String video_price = Object.getString("price");
                             //String video_rating = Object.getString("vehicle_compony");
 

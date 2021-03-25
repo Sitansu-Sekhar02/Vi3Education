@@ -95,7 +95,7 @@ public class YourCourseFragment extends Fragment {
         director=new File("/mnt/");
         permisForVideo();
 
-        /*getCert.setOnClickListener(new View.OnClickListener() {
+       /* getCert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -113,6 +113,7 @@ public class YourCourseFragment extends Fragment {
         return  view;
 
     }
+
 
     private void permisForVideo() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!=
@@ -174,15 +175,15 @@ public class YourCourseFragment extends Fragment {
                             JSONObject object = jsonArray.getJSONObject(i);
 
                             YourCourseModel list = new YourCourseModel();
-                            String video_name = object.getString("video_name");
+                            String video_name = object.getString("course_name");
                             video_id = object.getString("product_id");
-                            String video_image = "https://vi3edutech.com/uploadvideo/" + object.getString("img");
-                            String video_url = "https://vi3edutech.com/uploadvideo/"+object.getString("vname");
+                            String video_image = "https://vi3edutech.com/images/course_images/" + object.getString("image");
+                            //String video_url = "https://vi3edutech.com/uploadvideo/"+object.getString("vname");
 
                             list.setCourse_name(video_name);
                             list.setCourse_id(video_id);
                             list.setCourse_image(video_image);
-                            list.setCourse_video_url(video_url);
+                           // list.setCourse_video_url(video_url);
 
                             course_list.add(list);
                         }
@@ -252,7 +253,10 @@ public class YourCourseFragment extends Fragment {
 
             holder.tvCatName.setText(mModel.get(position).getCourse_name());
             final String video_id=mModel.get(position).getCourse_id();
+            final String course_name=mModel.get(position).getCourse_name();
+
             String item = String.valueOf(mModel.get(holder.getAdapterPosition()));
+            final String video_image=mModel.get(position).getCourse_image();
             Log.e("item",""+item);
 
             Log.e("videoId",""+video_id);
@@ -268,8 +272,8 @@ public class YourCourseFragment extends Fragment {
             holder.cardMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    replaceFragmentWithAnimation(new PlayVideoFragment(),video_url);
+                    replaceFragmentWithAnimation(new AllCourseVideoFragment(),video_id,video_image,course_name);
+                   // replaceFragmentWithAnimation(new PlayVideoFragment(),video_url);
                    /* Fragment fragment = new Fragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("key", holder.getAdapterPosition());
@@ -317,12 +321,15 @@ public class YourCourseFragment extends Fragment {
             cardView_c=itemView.findViewById(R.id.Cardview_click);
         }
     }
-    public void replaceFragmentWithAnimation(Fragment fragment, String video_url) {
+    public void replaceFragmentWithAnimation(Fragment fragment, String video_id, String video_image, String course_name) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        bundle.putString("video_url",video_url);
+        bundle.putString("course_id",video_id);
+      //  bundle.putString("course_id",video_id);
+         bundle.putString("video_image",video_image);
+        bundle.putString("course_name",course_name);
 
-        //bundle.putString("order_date_month",);
+
         fragment.setArguments(bundle);
         transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
         transaction.replace(R.id.fragment_container, fragment);

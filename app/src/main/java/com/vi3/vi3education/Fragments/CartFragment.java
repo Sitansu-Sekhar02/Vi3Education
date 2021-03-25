@@ -223,7 +223,7 @@ public class CartFragment extends Fragment {
                             String video_name = object.getString("product_name");
                             String video_id = object.getString("pid");
                             String user_id = object.getString("user_id");
-                            String video_image = "https://vi3edutech.com/uploadvideo/" + object.getString("img");
+                            String video_image = "https://vi3edutech.com/images/course_images/" + object.getString("image");
                             String video_price = object.getString("price");
 
                             list.setCart_id(cart_id);

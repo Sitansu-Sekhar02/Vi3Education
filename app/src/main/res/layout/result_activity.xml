@@ -26,7 +26,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Download certificate"
+        android:text="Submit Answer to get certificate"
         android:id="@+id/btnGetCert"
         android:background="#2196F3"
         android:layout_marginBottom="@dimen/_15sdp"

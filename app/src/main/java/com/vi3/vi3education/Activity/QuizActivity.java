@@ -170,10 +170,9 @@ public class QuizActivity extends AppCompatActivity {
                             quiz_list.add(list);
 
                         }
-                        final String Questions[]={String.valueOf(quiz_list)};
-                        Log.e("questions",""+Questions);
+                        final String Questions[]={(quiz_list.get(flag).getQuestions())};
                         final String Opt[]={option1,option2,option3,option4};
-                        final String Ans[]={answer};
+                        final String Ans[]={String.valueOf(quiz_list.get(flag).getAnswer())};
 
                         Tv_questions.setText(quiz_list.get(flag).getQuestions());
                         rb1.setText(quiz_list.get(flag).getOption_1());
@@ -197,7 +196,7 @@ public class QuizActivity extends AppCompatActivity {
                                 RadioButton uans = (RadioButton) findViewById(radio_g.getCheckedRadioButtonId());
                                 String ansText = uans.getText().toString();
 //                Toast.makeText(getApplicationContext(), ansText, Toast.LENGTH_SHORT).show();
-                if(ansText.equals(Ans[flag])) {
+                if(ansText.equals(quiz_list.get(flag).getAnswer())) {
                     correct++;
                     //Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
                 }
@@ -210,13 +209,14 @@ public class QuizActivity extends AppCompatActivity {
 
                 /*if (score != null)
                     score.setText(""+correct);*/
-                if(flag<quiz_list.get(flag).getQuestions().length())
+                if(flag!=quiz_list.size())
                 {
-                    tv.setText(quiz_list.get(flag).getQuestions());
-                    rb1.setText(quiz_list.get(flag*4).getOption_1());
-                    rb2.setText(quiz_list.get(flag*4 +1).getOption_1());
-                    rb3.setText(quiz_list.get(flag*4 +2).getOption_1());
-                    rb4.setText(quiz_list.get(flag*4 +3).getOption_1());
+
+                    Tv_questions.setText(quiz_list.get(flag).getQuestions());
+                    rb1.setText(quiz_list.get(flag).getOption_1());
+                    rb2.setText(quiz_list.get(flag).getOption_2());
+                    rb3.setText(quiz_list.get(flag).getOption_3());
+                    rb4.setText(quiz_list.get(flag).getOption_4());
                 }
                 else
                 {
@@ -256,7 +256,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("vid", id);
+                parameters.put("course_id", id);
                 return parameters;
             }
         };
