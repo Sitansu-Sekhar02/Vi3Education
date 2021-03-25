@@ -74,7 +74,7 @@ public class QuizActivity extends AppCompatActivity {
     private long timeLeftInMillis;
     private ColorStateList textColorDefaultRb;
     private ColorStateList textColorDefaultCd;
-
+    public static String size;
 
     String id;
     Dialog dialog;
@@ -206,6 +206,9 @@ public class QuizActivity extends AppCompatActivity {
                 }
 
                 flag++;
+
+                size= String.valueOf(quiz_list.size());
+                Log.e("lsit",""+size);
 
                 /*if (score != null)
                     score.setText(""+correct);*/
